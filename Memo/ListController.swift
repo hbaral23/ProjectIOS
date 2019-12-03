@@ -14,6 +14,8 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var notes: [Note]?
     
+    let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,13 +45,11 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*let pointStationsViewController = mainStoryboard.instantiateViewController(withIdentifier: "pointStationsViewController") as! PointStationsViewController
+        let NoteController = mainStoryboard.instantiateViewController(withIdentifier: "NoteController") as! NoteController
         
-        //TODO: Ici, on va passer au pointStationsViewController les informations sur le netwok choisi, afin de pouvoir afficher les différentes stations sur la carte
+        NoteController.note = self.notes?[indexPath.row]
         
-        pointStationsViewController.network = self.locationPoints?[indexPath.row]
-        
-        self.navigationController?.pushViewController(pointStationsViewController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: false)*/
+        self.navigationController?.pushViewController(NoteController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
