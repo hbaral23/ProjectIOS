@@ -12,6 +12,8 @@
 		D9BD65B7239653400006A28B /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65B6239653400006A28B /* NoteTableViewCell.swift */; };
 		D9BD65BB239654260006A28B /* NoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9BD65BA239654260006A28B /* NoteTableViewCell.xib */; };
 		D9BD65BD2396652B0006A28B /* NoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65BC2396652B0006A28B /* NoteController.swift */; };
+		D9BD65BF23966E450006A28B /* MemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65BE23966E450006A28B /* MemoViewController.swift */; };
+		D9BD65C223966E7A0006A28B /* Memo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BD65C023966E7A0006A28B /* Memo.storyboard */; };
 		FBEA4D732396414600F69319 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEA4D722396414600F69319 /* AppDelegate.swift */; };
 		FBEA4D752396414600F69319 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEA4D742396414600F69319 /* SceneDelegate.swift */; };
 		FBEA4D772396414600F69319 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEA4D762396414600F69319 /* ViewController.swift */; };
@@ -45,6 +47,8 @@
 		D9BD65B6239653400006A28B /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 		D9BD65BA239654260006A28B /* NoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteTableViewCell.xib; sourceTree = "<group>"; };
 		D9BD65BC2396652B0006A28B /* NoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteController.swift; sourceTree = "<group>"; };
+		D9BD65BE23966E450006A28B /* MemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoViewController.swift; sourceTree = "<group>"; };
+		D9BD65C123966E7A0006A28B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Memo.storyboard; sourceTree = "<group>"; };
 		FBEA4D6F2396414600F69319 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEA4D722396414600F69319 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBEA4D742396414600F69319 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,11 +136,13 @@
 				FBEA4D742396414600F69319 /* SceneDelegate.swift */,
 				FBEA4D762396414600F69319 /* ViewController.swift */,
 				D9BD65B0239650480006A28B /* ListController.swift */,
+				D9BD65BC2396652B0006A28B /* NoteController.swift */,
+				D9BD65BE23966E450006A28B /* MemoViewController.swift */,
 				FBEA4D782396414600F69319 /* Main.storyboard */,
+				D9BD65C023966E7A0006A28B /* Memo.storyboard */,
 				FBEA4D7B2396414F00F69319 /* Assets.xcassets */,
 				FBEA4D7D2396414F00F69319 /* LaunchScreen.storyboard */,
 				FBEA4D802396414F00F69319 /* Info.plist */,
-				D9BD65BC2396652B0006A28B /* NoteController.swift */,
 			);
 			path = Memo;
 			sourceTree = "<group>";
@@ -266,6 +272,7 @@
 				FBEA4D7F2396414F00F69319 /* LaunchScreen.storyboard in Resources */,
 				FBEA4D7C2396414F00F69319 /* Assets.xcassets in Resources */,
 				FBEA4D7A2396414600F69319 /* Main.storyboard in Resources */,
+				D9BD65C223966E7A0006A28B /* Memo.storyboard in Resources */,
 				D9BD65BB239654260006A28B /* NoteTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9BD65BF23966E450006A28B /* MemoViewController.swift in Sources */,
 				D9BD65B4239651C10006A28B /* Note.swift in Sources */,
 				FBEA4D772396414600F69319 /* ViewController.swift in Sources */,
 				FBEA4D732396414600F69319 /* AppDelegate.swift in Sources */,
@@ -333,6 +341,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D9BD65C023966E7A0006A28B /* Memo.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9BD65C123966E7A0006A28B /* Base */,
+			);
+			name = Memo.storyboard;
+			sourceTree = "<group>";
+		};
 		FBEA4D782396414600F69319 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

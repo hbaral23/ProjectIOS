@@ -6,4 +6,11 @@
 //  Copyright © 2019 Hugo Baral. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class NoteController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
