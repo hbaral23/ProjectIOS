@@ -161,6 +161,25 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
+    
+    func deleteNote(id: Int) {
+        var stmt: OpaquePointer?
+        
+        //the insert query
+        let queryString = "DELETE FROM Notes WHERE id = \(id)"
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure inserting hero: \(errmsg)")
+            return
+        }
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes?.count ?? 0
@@ -182,5 +201,32 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.navigationController?.pushViewController(NoteController, animated: true)
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        let flagAction = self.contextualToggleFlagAction(forRowAtIndexPath: indexPath)
+        
+        let swipeConfig = UISwipeActionsConfiguration(actions: [flagAction])
+        return swipeConfig
+    }
+    
+    func contextualToggleFlagAction(forRowAtIndexPath indexPath: IndexPath) -> UIContextualAction {
+        
+        let note = notes![indexPath.row];
+        let id = note.id
+        
+        let action = UIContextualAction(style: .normal,title: "") { (contextAction: UIContextualAction, sourceView: UIView, completionHandler: (Bool) -> Void) in
+                
+            self.deleteNote(id: id!)
+            self.notes?.remove(at: indexPath.row)
+            
+            self.notesTableView.reloadData();
+        }
+        
+        action.image = UIImage(systemName: "trash.fill")
+        action.backgroundColor =  UIColor.red
+        return action
     }
 }

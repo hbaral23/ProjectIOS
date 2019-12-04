@@ -92,7 +92,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d7w-wr-rAL">
-                                <rect key="frame" x="-0.53426311832822648" y="818" width="414" height="44.000000000000455"/>
+                                <rect key="frame" x="-1" y="818" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="Item" image="checkmark.circle.fill" catalog="system" width="126" id="O8J-7u-kAA"/>
