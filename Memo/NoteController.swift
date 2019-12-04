@@ -10,6 +10,7 @@ import UIKit
 
 class NoteController: UIViewController {
     
+    @IBOutlet weak var TBMisc: UIToolbar!
     
     @IBOutlet weak var UIContent: UITextView!
     @IBOutlet weak var UITime: UILabel!
@@ -36,6 +37,19 @@ class NoteController: UIViewController {
         format.dateFormat = "dd MMMM yyyy | HH:mm"
         format.locale = Locale(identifier: "FR-fr")
         UITime.text = format.string(from: (note?.date)!)
+        
+        
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(closeTapped))
+        bar.items = [reset]
+        bar.sizeToFit()
+        UIContent.inputAccessoryView = bar
+    }
+    
+    
+    
+    @objc func closeTapped(){
+        
     }
     
     @objc func addTapped(){
