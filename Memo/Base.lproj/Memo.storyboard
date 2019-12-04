@@ -25,7 +25,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acj-9W-tZc">
                                 <rect key="frame" x="0.0" y="32" width="414" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="x2b-yW-jDG"/>
+                                    <navigationItem title="Title" id="5QV-dA-Rjb"/>
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3o-jW-jpS">
@@ -34,6 +34,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3KH-Ag-kJx">
+                                <rect key="frame" x="0.0" y="786" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ZM-Cl-70h">
+                                <rect key="frame" x="0.0" y="819" width="414" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="To do" selectedImage="checkmark.circle.fill" catalog="system" id="DE6-aB-KfX">
+                                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tabBarItem>
+                                    <tabBarItem title="Picture" selectedImage="photo.fill" catalog="system" id="yT2-y6-hjg"/>
+                                    <tabBarItem title="Record" selectedImage="mic.fill" catalog="system" id="IrJ-fm-v6B"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -60,4 +76,9 @@
             <point key="canvasLocation" x="-191.30434782608697" y="102.45535714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="mic.fill" catalog="system" width="54" height="64"/>
+        <image name="photo.fill" catalog="system" width="64" height="46"/>
+    </resources>
 </document>
