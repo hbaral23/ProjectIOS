@@ -9,15 +9,17 @@
 import Foundation
 
 public class Note {
+    var id: Int?
     var title: String?
     var content: String?
     var pictures: [String]?
     var date: Date
     
-    init(title: String?, content: String?, pictures: [String]?) {
+    init(id: Int?, title: String?, content: String?, pictures: [String]?, date: Date) {
+        self.id = id
         self.title = title
         self.content = content
         self.pictures = pictures
-        self.date = Date()
+        self.date = date
     }
 }
