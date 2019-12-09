@@ -144,6 +144,9 @@
                                 <rect key="frame" x="302" y="7" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Valider"/>
+                                <connections>
+                                    <action selector="valider" destination="yx6-De-CZU" eventType="touchUpInside" id="X54-46-lS8"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
