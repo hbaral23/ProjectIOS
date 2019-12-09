@@ -52,13 +52,17 @@
                             <barButtonItem image="slider.horizontal.3" catalog="system" id="iU0-Za-0IR">
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </barButtonItem>
-                            <barButtonItem image="magnifyingglass" catalog="system" id="8Eg-Tw-zrS">
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="8Eg-Tw-zrS">
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="openSearchBar" destination="BYZ-38-t0r" id="PjR-kq-eJk"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="notesTableView" destination="2L4-aq-JHR" id="pSz-44-CYE"/>
+                        <outlet property="searchButton" destination="8Eg-Tw-zrS" id="9XY-6Y-5uH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -9,7 +9,7 @@
 import UIKit
 import SQLite3
 
-class ListController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
 
     @IBOutlet weak var notesTableView: UITableView!
     
@@ -18,6 +18,13 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var notes: [Note]?
     
     let mainStoryboard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+    
+    var searchBarIsOpen = false;
+        
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+    var searchBar = UISearchBar()
+    
+    var keyword = "";
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +37,8 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
             notes?.append(Note(id: i, title: "note\(i)" , content: "Contenu note\(i)", pictures: [], date: Date()))
         }
         
+        searchBar.delegate = self
+        
         getData()
         
         notesTableView.delegate = self
@@ -38,6 +47,50 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteTableViewCell")
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        keyword = searchText
+        getData()
+        notesTableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        guard let firstSubview = searchBar.subviews.first else { return }
+
+        firstSubview.subviews.forEach {
+            ($0 as? UITextField)?.clearButtonMode = .never
+        }
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        let label = UILabel()
+        label.text = "Notes"
+        navigationItem.titleView = label
+        
+        searchButton.width = 0.01;
+        searchBarIsOpen = false
+    }
+    
+    @IBAction func openSearchBar() {
+        if(searchBarIsOpen == false){
+            
+            searchBar.placeholder = "Search"
+
+            navigationItem.titleView = searchBar
+            
+            searchButton.image = UIImage(systemName: "xmark")
+            
+            searchBarIsOpen = true
+        }else {
+            let label = UILabel()
+            label.text = "Notes"
+            navigationItem.titleView = label
+            
+            searchButton.image = UIImage(systemName: "magnifyingglass")
+            
+            searchBarIsOpen = false
+        }
+    }
+
     func initDB(){
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("NotesDatabase.sqlite")
@@ -55,7 +108,7 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getData(){
         notes?.removeAll()
         
-        let queryString = "SELECT * FROM Notes"
+        let queryString = "SELECT * FROM Notes WHERE title LIKE '%\(keyword)%' OR content LIKE '%\(keyword)%'"
         
         var stmt:OpaquePointer?
         
