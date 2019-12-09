@@ -98,7 +98,7 @@
                                     <barButtonItem title="Item" image="checkmark.circle.fill" catalog="system" width="126" id="O8J-7u-kAA"/>
                                     <barButtonItem title="Item" image="photo.fill" catalog="system" width="83.5" id="weX-XK-PZj"/>
                                     <barButtonItem title="Item" image="mic.fill" catalog="system" width="118" id="8XV-a0-ioD"/>
-                                    <barButtonItem image="trash.fill" catalog="system" width="57" id="uvN-q0-noO"/>
+                                    <barButtonItem title="Item" image="trash.fill" catalog="system" width="57" id="uvN-q0-noO"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -124,6 +124,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="TBMisc" destination="d7w-wr-rAL" id="vXC-1P-jl6"/>
                         <outlet property="UIContent" destination="AHq-1d-fL5" id="yWN-Rd-Snh"/>
                         <outlet property="UITime" destination="CLE-9k-opc" id="8Lp-E2-3I1"/>
                     </connections>
