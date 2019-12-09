@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NoteController: UIViewController {
+class NoteController: UIViewController, UITextViewDelegate {
     
+
     @IBOutlet weak var TBMisc: UIToolbar!
     
     @IBOutlet weak var UIContent: UITextView!
@@ -39,17 +40,19 @@ class NoteController: UIViewController {
         UITime.text = format.string(from: (note?.date)!)
         
         
-        let bar = UIToolbar()
-        let reset = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(closeTapped))
-        bar.items = [reset]
-        bar.sizeToFit()
-        UIContent.inputAccessoryView = bar
+        //btnDel.image  = UIImage(systemName: "return")
+        UIContent.inputAccessoryView = TBMisc
+        UIContent.delegate = self
     }
     
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        //self.navigationItem.leftBarButtonItem = nil
+        
+    }
     
     @objc func closeTapped(){
-        
+        view.endEditing(true)
+        UITime.text  = "test"
     }
     
     @objc func addTapped(){
