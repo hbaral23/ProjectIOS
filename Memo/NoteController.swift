@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteController: UIViewController, UITextViewDelegate {
+class NoteController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate {
     
 
     @IBOutlet weak var TBMisc: UIToolbar!
@@ -21,6 +21,8 @@ class NoteController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var UIRecord: UIButton!
     
     var note: Note?
+    var barButton: UIBarButtonItem!
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,16 +45,43 @@ class NoteController: UIViewController, UITextViewDelegate {
         //btnDel.image  = UIImage(systemName: "return")
         UIContent.inputAccessoryView = TBMisc
         UIContent.delegate = self
+            
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        //self.navigationItem.leftBarButtonItem = nil
         
+        self.navigationItem.setHidesBackButton(true, animated:true);
+                //create a new button
+        let button = UIButton(type: UIButton.ButtonType.custom) as! UIButton
+        if (button.imageView?.image == nil){
+        //set image for button
+        button.setImage(UIImage(named: "../img/hide-keyboard-button.png"), for: UIControl.State.normal)
+        //add function for button
+        button.addTarget(self, action: "closeKeyboard", for: UIControl.Event.touchUpInside)
+            
+        
+        button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        
+        barButton = UIBarButtonItem(customView: button)
+        
+        navigationItem.leftBarButtonItem = barButton
+        }
+        else {
+            self.barButton.isEnabled = true
+        }
+    }
+    
+    @objc func closeKeyboard(){
+        view.endEditing(true)
+
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.setHidesBackButton(false, animated:true);
     }
     
     @objc func closeTapped(){
-        view.endEditing(true)
-        UITime.text  = "test"
+        //view.endEditing(true)
+        
+        self.navigationItem.setHidesBackButton(false, animated:true);
     }
     
     @objc func addTapped(){
@@ -62,4 +91,13 @@ class NoteController: UIViewController, UITextViewDelegate {
     @objc func shareTapped(){
         
     }
+    
+    /*Camera*/
+    @IBAction func takePhoto(_ sender: UIButton) {
+        imagePicker =  UIImagePickerController()
+        //imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+    }
+
 }
