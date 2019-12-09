@@ -47,6 +47,13 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesTableView.register(UINib(nibName: "NoteTableViewCell", bundle: nil), forCellReuseIdentifier: "NoteTableViewCell")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getData()
+        notesTableView.reloadData()
+    }
+       
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         keyword = searchText
         getData()
