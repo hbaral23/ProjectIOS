@@ -83,6 +83,99 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func addNewNote(){
+        /*var stmt: OpaquePointer?
+        
+        //the insert query
+        let queryString = "INSERT INTO Notes (title, content, date) VALUES (?,?,?)"
+        
+        //preparing the query
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        let title = ""
+        let content = ""
+        
+        let dateFormatter: DateFormatter = {
+            let _formatter = DateFormatter()
+            _formatter.dateFormat = "dd MMMM yyyy | HH:mm"
+            _formatter.locale = Locale(identifier: "FR-fr")
+            return _formatter
+        }()
+        
+        let date = dateFormatter.string(from: Date())
+        
+        let SQLITE_TRANSIENT = unsafeBitCast(OpaquePointer(bitPattern: -1), to: sqlite3_destructor_type.self)
+        
+        if sqlite3_bind_text(stmt, 1, title, -1, SQLITE_TRANSIENT) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure binding title: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_bind_text(stmt, 2, content, -1, SQLITE_TRANSIENT ) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure binding content: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_bind_text(stmt, 3, date, -1, SQLITE_TRANSIENT) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure binding date: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure inserting notes: \(errmsg)")
+            return
+        }
+        
+        let queryString2 = "SELECT * WHERE id=(SELECT MAX(id) FROM Notes) FROM Notes"
+        
+        var stmt2:OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString2, -1, &stmt2, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        let dateFormatter2: DateFormatter = {
+            let _formatter = DateFormatter()
+            _formatter.dateFormat = "dd MMMM yyyy | HH:mm"
+            _formatter.locale = Locale(identifier: "FR-fr")
+            return _formatter
+        }()
+        
+        while(sqlite3_step(stmt) == SQLITE_ROW){
+            let newId = sqlite3_column_int(stmt, 0)
+            let newTitle = String(cString: sqlite3_column_text(stmt, 1))
+            let newContent = String(cString: sqlite3_column_text(stmt, 2))
+            let newStringDate = String(cString: sqlite3_column_text(stmt, 3))
+            let newDate = dateFormatter2.date(from: newStringDate);
+            
+            let newNote: Note = Note(id: Int(newId), title: newTitle, content: newContent, pictures: [], date: newDate!)
+            
+            let NoteController = mainStoryboard.instantiateViewController(withIdentifier: "NoteController") as! NoteController
+            
+            NoteController.note = newNote
+            
+            self.navigationController?.pushViewController(NoteController, animated: true)
+        }*/
+        
+        let newNote = Note(id: nil, title: "", content: "", pictures: [], date: Date())
+        
+        let NoteController = mainStoryboard.instantiateViewController(withIdentifier: "NoteController") as! NoteController
+        
+        NoteController.note = newNote
+        
+        self.navigationController?.pushViewController(NoteController, animated: true)
+    }
+    
     func addTestData(){
     
         for i in 1...10{
