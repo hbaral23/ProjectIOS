@@ -26,6 +26,9 @@ class NoteTableViewCell: UITableViewCell {
         if(note?.pictures != nil && (note?.pictures?.count)! > 0) {
             self.noteImageView.image = UIImage(named: (note?.pictures![0])!)
         }
+        else{
+            self.noteImageView.isHidden = true;
+        }
     
         let format = DateFormatter()
         format.dateFormat = "dd MMMM yyyy | HH:mm"
