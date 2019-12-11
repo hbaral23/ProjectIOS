@@ -32,8 +32,10 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     
     var titleModif = false
     var contentModif = false
-    var newTitle: String = ""
-    var newContent: String = ""
+    var newTitle = ""
+    var newContent = ""
+    
+    @IBOutlet weak var toolBar: UIToolbar!
 
     enum ImageSource {
          case photoLibrary
@@ -42,13 +44,6 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(note)
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(shareTapped))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addTapped))
-//
-//        let share = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
-//        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-//        navigationItem.rightBarButtonItems = [add, share]
         
         initDB()
         
@@ -66,11 +61,18 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         
         titleView.text = note?.title
         titleView.frame = CGRect(x: 0, y: 0, width: 150, height: 1)
-        titleView.borderStyle = .none
-        titleView.layer.backgroundColor = UIColor.black.cgColor
+        titleView.textAlignment = NSTextAlignment.center
         navigationItem.titleView = titleView
         titleView.addTarget(self, action: #selector(textFieldDidChange(_:)),
         for: UIControl.Event.editingChanged)
+        
+        /*let width: CGFloat = TBMisc.subviews.reduce(0) {sofar, new in
+            if let image = e.image {
+                return sofar + image.size.width + 11
+            } else {
+                return sofar + 10 + 11
+            }
+        }*/
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -129,6 +131,8 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
 
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(false, animated:true);
+        
+        
      }
     
     @objc func closeTapped(){
@@ -142,7 +146,6 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         TBMisc.widthAnchor.constraint(equalToConstant: 50).isActive = true
         TBMisc.heightAnchor.constraint(equalToConstant: 50).isActive = true
         TBMisc.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
-        //self.navigationController?.navigationBar = TBMisc
     }
     
     @objc func addTapped(){
@@ -279,6 +282,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         
         contentModif = false
         titleModif = false
+        navigationController?.popViewController(animated: true)
     }
     
     func saveNote(){
@@ -332,31 +336,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
             return
         }
         
-        let queryString2 = "SELECT * FROM Notes WHERE title LIKE '\(newTitle)%' AND content LIKE '\(newContent)'"
-        
-        var stmt2:OpaquePointer?
-        
-        if sqlite3_prepare(db, queryString2, -1, &stmt2, nil) != SQLITE_OK{
-            let errmsg = String(cString: sqlite3_errmsg(db)!)
-            print("error preparing insert: \(errmsg)")
-            return
-        }
-        
-        if sqlite3_step(stmt2) == SQLITE_ROW {
-            let id = sqlite3_column_int(stmt, 0)
-            let title = String(cString: sqlite3_column_text(stmt, 1))
-            let content = String(cString: sqlite3_column_text(stmt, 2))
-            let stringDate = String(cString: sqlite3_column_text(stmt, 3))
-            let date = dateFormatter.date(from: stringDate);
-            
-            print(title)
-            
-            self.note = Note(id: Int(id), title: title, content: content, pictures: [], date: date!)
-            
-            print (self.note)
-        }
-        
-        
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func valider(){

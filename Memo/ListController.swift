@@ -115,7 +115,7 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getData(){
         notes?.removeAll()
         
-        let queryString = "SELECT * FROM Notes WHERE title LIKE '%\(keyword)%' OR content LIKE '%\(keyword)%'"
+        let queryString = "SELECT * FROM Notes WHERE title LIKE '%\(keyword)%' OR content LIKE '%\(keyword)%' ORDER BY date DESC"
         
         var stmt:OpaquePointer?
         
