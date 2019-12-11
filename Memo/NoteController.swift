@@ -10,13 +10,14 @@ import UIKit
 import SQLite3
 
 
-class NoteController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
+class NoteController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
 
     @IBOutlet weak var TBMisc: UIToolbar!
     @IBOutlet weak var UIContent: UITextView!
     @IBOutlet weak var UITime: UILabel!
     @IBOutlet weak var imageTake: UIImageView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var UITodo: UIButton!
     @IBOutlet weak var UIPicture: UIButton!
@@ -34,6 +35,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     var contentModif = false
     var newTitle = ""
     var newContent = ""
+    var images: [String] = ["photo", "photo"]
     
     @IBOutlet weak var toolBar: UIToolbar!
 
@@ -59,6 +61,10 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         UIContent.inputAccessoryView = TBMisc
         UIContent.delegate = self
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        
         titleView.text = note?.title
         titleView.frame = CGRect(x: 0, y: 0, width: 150, height: 1)
         titleView.textAlignment = NSTextAlignment.center
@@ -73,6 +79,36 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
                 return sofar + 10 + 11
             }
         }*/
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath as IndexPath) as! ImageCollectionViewCell
+        
+        cell.configure(imageName: images[indexPath.row ])
+    
+        return cell
+    }
+    
+    /*func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+        let collectionViewWidth = collectionView.bounds.width/2
+        
+        let width = collectionViewWidth - 40
+        
+        return CGSize(width: width, height: width)
+    }*/
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
