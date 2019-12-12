@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D965233323A0F534004418BB /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D965233223A0F534004418BB /* ImageCollectionViewCell.swift */; };
+		D965233723A0F604004418BB /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D965233623A0F604004418BB /* ImageCollectionViewCell.xib */; };
 		D9BD65B1239650480006A28B /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65B0239650480006A28B /* ListController.swift */; };
 		D9BD65B4239651C10006A28B /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65B3239651C10006A28B /* Note.swift */; };
 		D9BD65B7239653400006A28B /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BD65B6239653400006A28B /* NoteTableViewCell.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D965233223A0F534004418BB /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D965233623A0F604004418BB /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D9BD65B0239650480006A28B /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		D9BD65B3239651C10006A28B /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D9BD65B6239653400006A28B /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 			children = (
 				D9BD65B6239653400006A28B /* NoteTableViewCell.swift */,
 				D9BD65BA239654260006A28B /* NoteTableViewCell.xib */,
+				D965233223A0F534004418BB /* ImageCollectionViewCell.swift */,
+				D965233623A0F604004418BB /* ImageCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 				FBC7BB9D239E3B13009C4AB0 /* img in Resources */,
 				FBEA4D7F2396414F00F69319 /* LaunchScreen.storyboard in Resources */,
 				FBEA4D7C2396414F00F69319 /* Assets.xcassets in Resources */,
+				D965233723A0F604004418BB /* ImageCollectionViewCell.xib in Resources */,
 				FBEA4D7A2396414600F69319 /* Main.storyboard in Resources */,
 				D9BD65C223966E7A0006A28B /* Memo.storyboard in Resources */,
 				D9BD65BB239654260006A28B /* NoteTableViewCell.xib in Resources */,
@@ -308,6 +315,7 @@
 				FBEA4D732396414600F69319 /* AppDelegate.swift in Sources */,
 				D9BD65B7239653400006A28B /* NoteTableViewCell.swift in Sources */,
 				D9BD65BD2396652B0006A28B /* NoteController.swift in Sources */,
+				D965233323A0F534004418BB /* ImageCollectionViewCell.swift in Sources */,
 				FBEA4D752396414600F69319 /* SceneDelegate.swift in Sources */,
 				D9BD65B1239650480006A28B /* ListController.swift in Sources */,
 			);

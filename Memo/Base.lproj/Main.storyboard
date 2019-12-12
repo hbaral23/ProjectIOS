@@ -115,7 +115,11 @@
                                             <action selector="startCamera:" destination="yx6-De-CZU" id="xA9-sE-YzX"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" image="trash.fill" catalog="system" width="115" id="uvN-q0-noO"/>
+                                    <barButtonItem title="Item" image="trash.fill" catalog="system" width="115" id="uvN-q0-noO">
+                                        <connections>
+                                            <action selector="deleteNote" destination="yx6-De-CZU" id="jcR-rB-EbW"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Y1W-oh-pFR">

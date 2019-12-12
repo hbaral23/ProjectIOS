@@ -23,6 +23,9 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     @IBOutlet weak var UIPicture: UIButton!
     @IBOutlet weak var UIRecord: UIButton!
     
+    
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
     var note: Note?
     var barButton: UIBarButtonItem!
     var imagePicker: UIImagePickerController!
@@ -381,6 +384,25 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         }
         else{
             saveNote()
+        }
+    }
+    
+    @IBAction func deleteNote() {
+        var stmt: OpaquePointer?
+        
+        //the insert query
+        let queryString = "DELETE FROM Notes WHERE id = \(self.note?.id)"
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure inserting hero: \(errmsg)")
+            return
         }
     }
 }

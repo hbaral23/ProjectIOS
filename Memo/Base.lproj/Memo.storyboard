@@ -126,6 +126,7 @@
                         <outlet property="TBMisc" destination="Ml0-kf-zr8" id="IrF-5b-8TF"/>
                         <outlet property="UIContent" destination="1Lv-lV-MpB" id="t46-D1-nAL"/>
                         <outlet property="UITime" destination="avM-WF-9M5" id="lb5-33-b2l"/>
+                        <outlet property="deleteButton" destination="157-ZL-AOR" id="zUi-eu-gzc"/>
                         <outlet property="imageTake" destination="Ydz-5a-SxL" id="48w-qb-E50"/>
                         <outlet property="uiPicture" destination="Vbw-hB-Z6P" id="W3o-EL-185"/>
                     </connections>
