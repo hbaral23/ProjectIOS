@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Class Model Note
 public class Note {
     var id: Int?
     var title: String?

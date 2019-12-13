@@ -8,7 +8,7 @@
 
 import UIKit
 import SQLite3
-
+import AVFoundation
 
 class NoteController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate, UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -17,11 +17,11 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     @IBOutlet weak var UIContent: UITextView!
     @IBOutlet weak var UITime: UILabel!
     @IBOutlet weak var imageTake: UIImageView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    //@IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var UITodo: UIButton!
-    @IBOutlet weak var UIPicture: UIButton!
-    @IBOutlet weak var UIRecord: UIButton!
+    @IBOutlet weak var uiPicture: UIBarButtonItem!
+    @IBOutlet weak var uiRecord: UIButton!
     
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
@@ -29,7 +29,8 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     var note: Note?
     var barButton: UIBarButtonItem!
     var imagePicker: UIImagePickerController!
-    
+
+    var audioRecorder:AVAudioRecorder!
     var db: OpaquePointer?
     
     var titleView = UITextField()
@@ -52,6 +53,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         
         initDB()
         
+        //Set current time in the header
         self.navigationItem.title = note?.title;
         UIContent.text = note?.content
         let format = DateFormatter()
@@ -64,9 +66,10 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         UIContent.inputAccessoryView = TBMisc
         UIContent.delegate = self
         
-        collectionView.delegate = self
+        /*collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")*/
+        
         
         titleView.text = note?.title
         titleView.frame = CGRect(x: 0, y: 0, width: 150, height: 1)
@@ -74,14 +77,6 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         navigationItem.titleView = titleView
         titleView.addTarget(self, action: #selector(textFieldDidChange(_:)),
         for: UIControl.Event.editingChanged)
-        
-        /*let width: CGFloat = TBMisc.subviews.reduce(0) {sofar, new in
-            if let image = e.image {
-                return sofar + image.size.width + 11
-            } else {
-                return sofar + 10 + 11
-            }
-        }*/
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -114,6 +109,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         return 0
     }
     
+    //Note title changed
     @objc func textFieldDidChange(_ textField: UITextField) {
         newTitle = String(textField.text!)
         print(newTitle)
@@ -121,6 +117,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         titleModif = true
     }
     
+    //Initialization of local database
     func initDB(){
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent("NotesDatabase.sqlite")
@@ -135,6 +132,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         }
     }
     
+    //Detect when user get the focus of the content of the note, then hide the return button and show a closekeyboard button (Only usefull for Iphone, option available on the keyboard on Ipad)
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         self.navigationItem.setHidesBackButton(true, animated:true);
@@ -165,45 +163,18 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
         }
     }
     
+    //Close the keyboard, then remove the close keyboard button, then display return button
     @objc func closeKeyboard(){
         view.endEditing(true)
-
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.setHidesBackButton(false, animated:true);
-        
-        
      }
     
-    @objc func closeTapped(){
-        //view.endEditing(true)
-        
-        self.navigationItem.setHidesBackButton(false, animated:true);
-        self.view.addSubview(TBMisc)
-
-        TBMisc.translatesAutoresizingMaskIntoConstraints = false
-        TBMisc.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        TBMisc.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        TBMisc.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        TBMisc.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
-    }
-    
-    @objc func addTapped(){
-        
-    }
-    
-    @objc func shareTapped(){
-        
-    }
-    
-    
-    /*Camera*/
-   //MARK: - Take image
-      @IBAction func takePhoto(_ sender: UIBarButtonItem) {
-          guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+   
+   //MARK: - Picture and Camera
+    //Allow to access to photoLibrary
+    @IBAction func takePhoto(_ sender: UIBarButtonItem) {
               selectImageFrom(.photoLibrary)
-              return
-          }
-          selectImageFrom(.camera)
       }
 
     @IBAction func startCamera(_ sender: UIBarButtonItem) {
@@ -215,6 +186,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
 
     }
     
+    //Display the picture selected in the imageView
       func selectImageFrom(_ source: ImageSource){
           imagePicker =  UIImagePickerController()
           imagePicker.delegate = self
@@ -227,7 +199,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
           present(imagePicker, animated: true, completion: nil)
       }
 
-      //MARK: - Saving Image here
+    
       @IBAction func save(_ sender: AnyObject) {
           guard let selectedImage = imageTake.image else {
               print("Image not found!")
@@ -236,7 +208,7 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
           UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
       }
 
-      //MARK: - Add image to Library
+      // Add image to Library
       @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
           if let error = error {
               // we got back an error!
@@ -246,13 +218,44 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
           }
       }
 
+    //MARK: Micro
+    @IBAction func recordNoteVocal(_ sender: Any) {
+        /*
+        var audioSession:AVAudioSession = AVAudioSession.sharedInstance()
+        audioSession.setCategory(AVFoundation.AVAudioSessionCategoryPlayAndRecord, error: nil)
+        audioSession.setActive(true, error: nil)
+
+        var documents: AnyObject = NSSearchPathForDirectoriesInDomains( NSSearchPathDirectory.DocumentDirectory,  NSSearchPathDomainMask.UserDomainMask, true)[0]
+        var str =  documents.stringByAppendingPathComponent("recordTest.caf")
+        var url = NSURL.fileURLWithPath(str as String)
+
+        var recordSettings = [AVFormatIDKey:kAudioFormatAppleIMA4,
+            AVSampleRateKey:44100.0,
+            AVNumberOfChannelsKey:2,AVEncoderBitRateKey:12800,
+            AVLinearPCMBitDepthKey:16,
+            AVEncoderAudioQualityKey:AVAudioQuality.Max.rawValue]
+
+        println("url : \(url)")
+        var error: NSError?
+
+        audioRecorder = AVAudioRecorder(URL:url, settings: recordSettings, error: &error)
+        if let e = error {
+            println(e.localizedDescription)
+        } else {
+            audioRecorder.record()
+        }*/
+    }
+    
+    //Alert the user
       func showAlertWith(title: String, message: String){
           let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
           ac.addAction(UIAlertAction(title: "OK", style: .default))
           present(ac, animated: true)
       }
     
-    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+    
+    //Detect if the note content as been modified
+    func textViewDidChange(_ textView: UITextView) {
         newContent = UIContent.text!
         if(newContent != note?.content){
             contentModif = true
@@ -390,30 +393,34 @@ class NoteController: UIViewController, UITextViewDelegate, UINavigationControll
     @IBAction func deleteNote() {
         var stmt: OpaquePointer?
         
-        //the insert query
-        let queryString = "DELETE FROM Notes WHERE id = \(self.note?.id)"
-        
-        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
-            let errmsg = String(cString: sqlite3_errmsg(db)!)
-            print("error preparing insert: \(errmsg)")
-            return
+        if(self.note?.id != nil){
+            //the insert query
+            let queryString = "DELETE FROM Notes WHERE id = \(Int(self.note!.id!))"
+
+            if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+                let errmsg = String(cString: sqlite3_errmsg(db)!)
+                print("error preparing insert: \(errmsg)")
+                return
+            }
+
+            if sqlite3_step(stmt) != SQLITE_DONE {
+                let errmsg = String(cString: sqlite3_errmsg(db)!)
+                print("failure inserting hero: \(errmsg)")
+                return
+            }
         }
-        
-        if sqlite3_step(stmt) != SQLITE_DONE {
-            let errmsg = String(cString: sqlite3_errmsg(db)!)
-            print("failure inserting hero: \(errmsg)")
-            return
-        }
+
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension NoteController: UIImagePickerControllerDelegate{
-
+//Pick a picture then close the picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        imagePicker =  UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.dismiss(animated: true, completion: nil)
-        guard let selectedImage = info[.originalImage] as? UIImage else {
+        picker.dismiss(animated: true, completion: nil)
+    
+         
+         guard let selectedImage = info[.originalImage] as? UIImage else {
             print("Image not found!")
             return
         }

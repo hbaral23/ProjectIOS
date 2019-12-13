@@ -9,6 +9,7 @@
 import UIKit
 import SQLite3
 
+//MARK: CRUD from DB & display in tableView
 class ListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
 
     @IBOutlet weak var notesTableView: UITableView!
@@ -53,7 +54,7 @@ class ListController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notesTableView.reloadData()
     }
        
-    
+    //Research a note by it's title note or content
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         keyword = searchText
         getData()
